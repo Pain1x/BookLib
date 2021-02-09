@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace BookLib.BL.Services
 {
+    /// <summary>
+    /// Service that interacts with database using ADO.NET
+    /// </summary>
     public class LibService : ILibService
     {
         IUnitOfWork Database { get; set; }
@@ -24,7 +27,7 @@ namespace BookLib.BL.Services
             }
             catch
             {
-                throw new ValidationException("Something went wrong", "");
+                throw new ValidationException("Author or book is already in library", "");
             }
         }
         public void DeleteABook(string bookname)
@@ -35,7 +38,7 @@ namespace BookLib.BL.Services
             }
             catch
             {
-                throw new ValidationException("Something went wrong", "");
+                throw new ValidationException("There is no such book in library", "");
             }
         }
         public void DeleteAnAuthor(string authorname)
@@ -46,7 +49,7 @@ namespace BookLib.BL.Services
             }
             catch
             {
-                throw new ValidationException("Something went wrong", "");
+                throw new ValidationException("There is no such author in library", "");
             }
         }
         public IEnumerable<BookInfoDTO> GetBooks()
@@ -70,7 +73,7 @@ namespace BookLib.BL.Services
             }
             catch
             {
-                throw new ValidationException("Something went wrong", "");
+                throw new ValidationException("There is no such book in library", "");
             }
         }
         public void UpdateProgress(string finishpage, string bookname)
@@ -81,7 +84,7 @@ namespace BookLib.BL.Services
             }
             catch
             {
-                throw new ValidationException("Something went wrong", "");
+                throw new ValidationException("There is no such book in library", "");
             }
         }
     }

@@ -1,8 +1,9 @@
-﻿using BookLib.DAL.Repositories;
-
-namespace BookLib.DAL.Interfaces
+﻿namespace BookLib.DAL.Interfaces
 {
-   public interface IUnitOfWork
+    /// <summary>
+ /// Interface for realization of Unit of work pattern
+ /// </summary>
+    public interface IUnitOfWork
     {
         IDataRepository ADO { get; }
     }

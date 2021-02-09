@@ -9,7 +9,10 @@ using BookLib.BL.Infrastructure;
 
 namespace BookLib.WebApp.Controllers
 {
-    //TODO:Validations,theory,error handling,comments
+    //TODO:Theory,Unit tests
+    /// <summary>
+    /// Main controller of an app
+    /// </summary>
     public class HomeController : Controller
     {
         ILibService libService;
@@ -20,18 +23,38 @@ namespace BookLib.WebApp.Controllers
             libService = service;
             _logger = logger;
         }
-
+        /// <summary>
+        /// Returns the view with list of books
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
-            IEnumerable<BookInfoDTO> retTab = libService.GetBooks();
-            var mapper = new MapperConfiguration(config => config.CreateMap<BookInfoDTO, BookInfoViewModel>()).CreateMapper();
-            var books = mapper.Map<IEnumerable<BookInfoDTO>, List<BookInfoViewModel>>(retTab);
-            return View(books);
+            try
+            {
+                IEnumerable<BookInfoDTO> bookinfo = libService.GetBooks();
+                var mapper = new MapperConfiguration(config => config.CreateMap<BookInfoDTO, BookInfoViewModel>()).CreateMapper();
+                var books = mapper.Map<IEnumerable<BookInfoDTO>, List<BookInfoViewModel>>(bookinfo);
+                return View(books);
+            }
+            catch (ValidationException ex)
+            {
+                return Content(ex.Message.ToString());
+            }
         }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult AddAnAuthorAndBook()
         {
             return View();
         }
+        /// <summary>
+        /// POST version of method to add a book to library
+        /// </summary>
+        /// <param name="authorname">Name of an author to add to library</param>
+        /// <param name="bookname">Name of a book to add to library</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult AddAnAuthorAndBook(string authorname, string bookname)
         {
@@ -40,16 +63,24 @@ namespace BookLib.WebApp.Controllers
                 libService.AddAnAuthorAndBook(authorname, bookname);
                 return RedirectToAction("Index");
             }
-           catch(ValidationException ex)
+            catch (ValidationException ex)
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return RedirectToAction("Error");
+                return Content(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult DeleteAnAuthor()
         {
             return View();
         }
+        /// <summary>
+        /// POST version of a method to delete an author
+        /// </summary>
+        /// <param name="authorname">Name of an author to remove from library</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult DeleteAnAuthor(string authorname)
         {
@@ -60,14 +91,23 @@ namespace BookLib.WebApp.Controllers
             }
             catch (ValidationException ex)
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return RedirectToAction("Error");
+                return Content(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult UpdateBookName()
         {
             return View();
         }
+        /// <summary>
+        /// POST version of a method to rename a book
+        /// </summary>
+        /// <param name="bookname">Name of a book to rename</param>
+        /// <param name="newbookname">New name of a book</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult UpdateBookName(string bookname, string newbookname)
         {
@@ -78,14 +118,22 @@ namespace BookLib.WebApp.Controllers
             }
             catch (ValidationException ex)
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return RedirectToAction("Error");
+                return Content(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult DeleteABook()
         {
             return View();
         }
+        /// <summary>
+        /// POST version of a method to delete a book
+        /// </summary>
+        /// <param name="bookname">Name of a book to remove form a library</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult DeleteABook(string bookname)
         {
@@ -96,14 +144,23 @@ namespace BookLib.WebApp.Controllers
             }
             catch (ValidationException ex)
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return RedirectToAction("Error");
+                return Content(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
         public IActionResult UpdateProgress()
         {
             return View();
         }
+        /// <summary>
+        /// POST version of a method to update reading progress
+        /// </summary>
+        /// <param name="finishpage">Page where you have finished reading</param>
+        /// <param name="bookname">Name of a book which you are reading</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult UpdateProgress(string finishpage, string bookname)
         {
@@ -114,10 +171,13 @@ namespace BookLib.WebApp.Controllers
             }
             catch (ValidationException ex)
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return RedirectToAction("Error");
+                return Content(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Returns an error
+        /// </summary>
+        /// <returns></returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
