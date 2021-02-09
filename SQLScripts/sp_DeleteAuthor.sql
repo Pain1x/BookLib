@@ -1,0 +1,9 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE sp_DeleteAuthor
+    @AuthorName NVARCHAR(40)
+AS
+    DELETE Authors WHERE Name=@AuthorName
+GO

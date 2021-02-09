@@ -1,0 +1,12 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE sp_UpdateBooks
+    @BookName NVARCHAR(70),
+    @BookNameNew NVARCHAR(70)
+AS
+   UPDATE Books
+   SET BookName=@BookNameNew 
+   WHERE ID=(SELECT ID FROM Books WHERE BookName=@BookName)
+GO

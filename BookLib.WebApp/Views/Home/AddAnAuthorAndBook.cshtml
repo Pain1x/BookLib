@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Enter the name of a book to add";
+}
+<h1>@ViewData["Title"]</h1>
+
+    <div id="BookForm" style="text-align: center;">
+        <form method="post" asp-controller="Home" asp-action="AddAnAuthorAndBook">
+            <input size="50" name="bookname" required placeholder="Enter the name of a book" />
+            <input size="50" name="authorname" required placeholder="Enter the name of an author" />
+            <input type="submit" value="Add a book" />
+        </form>
+    </div>

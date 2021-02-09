@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Enter the name of a book to delete";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div id="BookForm" style="text-align: center;">
+    <form method="post" asp-controller="Home" asp-action="DeleteABook">
+        <input size="50" name="bookname" required placeholder="Enter the name of a book" />
+        <input type="submit" value="Delete a book" />
+    </form>
+</div>
