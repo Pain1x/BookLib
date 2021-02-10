@@ -15,14 +15,16 @@ namespace BookLib.WebApp.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+        #region Private Members
         ILibService libService;
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, ILibService service)
+        #endregion
+        #region Constructor
+        public HomeController(ILibService service)
         {
             libService = service;
-            _logger = logger;
         }
+        #endregion
+        #region GET Methods
         /// <summary>
         /// Returns the view with list of books
         /// </summary>
@@ -50,6 +52,49 @@ namespace BookLib.WebApp.Controllers
             return View();
         }
         /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult DeleteAnAuthor()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult UpdateBookName()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult DeleteABook()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Returns the view
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult UpdateProgress()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Returns an error
+        /// </summary>
+        /// <returns></returns>
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View();
+        }
+        #endregion
+        #region POST Methods
+        /// <summary>
         /// POST version of method to add a book to library
         /// </summary>
         /// <param name="authorname">Name of an author to add to library</param>
@@ -69,14 +114,6 @@ namespace BookLib.WebApp.Controllers
             }
         }
         /// <summary>
-        /// Returns the view
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult DeleteAnAuthor()
-        {
-            return View();
-        }
-        /// <summary>
         /// POST version of a method to delete an author
         /// </summary>
         /// <param name="authorname">Name of an author to remove from library</param>
@@ -93,14 +130,6 @@ namespace BookLib.WebApp.Controllers
             {
                 return Content(ex.Message.ToString());
             }
-        }
-        /// <summary>
-        /// Returns the view
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult UpdateBookName()
-        {
-            return View();
         }
         /// <summary>
         /// POST version of a method to rename a book
@@ -122,14 +151,6 @@ namespace BookLib.WebApp.Controllers
             }
         }
         /// <summary>
-        /// Returns the view
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult DeleteABook()
-        {
-            return View();
-        }
-        /// <summary>
         /// POST version of a method to delete a book
         /// </summary>
         /// <param name="bookname">Name of a book to remove form a library</param>
@@ -146,14 +167,6 @@ namespace BookLib.WebApp.Controllers
             {
                 return Content(ex.Message.ToString());
             }
-        }
-        /// <summary>
-        /// Returns the view
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult UpdateProgress()
-        {
-            return View();
         }
         /// <summary>
         /// POST version of a method to update reading progress
@@ -174,14 +187,6 @@ namespace BookLib.WebApp.Controllers
                 return Content(ex.Message.ToString());
             }
         }
-        /// <summary>
-        /// Returns an error
-        /// </summary>
-        /// <returns></returns>
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View();
-        }
+        #endregion
     }
 }

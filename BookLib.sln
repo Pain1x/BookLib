@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLib.ConsoleApp", "BookL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLib.BL", "BookLib.BL\BookLib.BL.csproj", "{52028DAB-D632-4CFD-BF7E-666871B6EA69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLib.DAL", "BookLib.DAL\BookLib.DAL.csproj", "{CC3EB766-1A79-4A40-B9CF-DFB26B768D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLib.DAL", "BookLib.DAL\BookLib.DAL.csproj", "{CC3EB766-1A79-4A40-B9CF-DFB26B768D03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLib.WebApp", "BookLib.WebApp\BookLib.WebApp.csproj", "{E779EADE-9832-4798-8F2C-8850590D8E81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLib.WebApp", "BookLib.WebApp\BookLib.WebApp.csproj", "{E779EADE-9832-4798-8F2C-8850590D8E81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLib.Tests", "BookLib.Tests\BookLib.Tests.csproj", "{9AEA63E6-84ED-4035-8CCF-0A1AC5EC0D96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E779EADE-9832-4798-8F2C-8850590D8E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E779EADE-9832-4798-8F2C-8850590D8E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E779EADE-9832-4798-8F2C-8850590D8E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AEA63E6-84ED-4035-8CCF-0A1AC5EC0D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AEA63E6-84ED-4035-8CCF-0A1AC5EC0D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AEA63E6-84ED-4035-8CCF-0A1AC5EC0D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AEA63E6-84ED-4035-8CCF-0A1AC5EC0D96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
