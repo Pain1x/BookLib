@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookLib.BL.DTO
+﻿namespace BookLib.BL.DTO
 {
+    /// <summary>
+    /// DTO object for Book table
+    /// </summary>
     public class BookDTO
     {
         public int ID { get; set; }

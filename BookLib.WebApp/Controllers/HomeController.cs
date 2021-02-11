@@ -2,14 +2,13 @@
 using BookLib.BL.Interfaces;
 using BookLib.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using AutoMapper;
 using BookLib.BL.Infrastructure;
 
 namespace BookLib.WebApp.Controllers
 {
-    //TODO:Theory,Unit tests
+    //TODO:Pagination?
     /// <summary>
     /// Main controller of an app
     /// </summary>

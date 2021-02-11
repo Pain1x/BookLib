@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookLib.WebApp.Models
+﻿namespace BookLib.WebApp.Models
 {
+    /// <summary>
+    /// View model for BookInfo object
+    /// </summary>
     public class BookInfoViewModel
     {
         public string Name { get; set; }

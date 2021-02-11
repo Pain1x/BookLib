@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookLib.BL.DTO
+﻿namespace BookLib.BL.DTO
 {
-   public class ReadingProgressDTO
+    /// <summary>
+    /// DTO object for ReadingProgress table
+    /// </summary>
+    public class ReadingProgressDTO
     {
         public int ID { get; set; }
         public string IsCompleted { get; set; }

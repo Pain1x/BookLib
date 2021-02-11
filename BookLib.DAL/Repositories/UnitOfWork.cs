@@ -1,12 +1,11 @@
-﻿using BookLib.DAL.Entities;
-using BookLib.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BookLib.DAL.Interfaces;
 
 namespace BookLib.DAL.Repositories
 {
-   public class UnitOfWork : IUnitOfWork
+    /// <summary>
+    /// Class that implemets IUnitOfWork interface
+    /// </summary>
+    public class UnitOfWork : IUnitOfWork
     {
         private AdoRepository adoRepository;
         public IDataRepository ADO

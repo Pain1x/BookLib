@@ -1,16 +1,14 @@
+using BookLib.BL.DTO;
 using BookLib.BL.Infrastructure;
 using BookLib.BL.Interfaces;
 using BookLib.BL.Services;
-using BookLib.DAL.Entities;
 using BookLib.DAL.Interfaces;
 using BookLib.DAL.Repositories;
 using BookLib.WebApp.Controllers;
+using BookLib.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-
 namespace BookLib.Tests
 {
     [TestFixture]
@@ -18,7 +16,7 @@ namespace BookLib.Tests
     {
         #region ViewResultNotNull
         [Test]
-        public void IndexContentResultNotNull()
+        public void Index_ContentResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -30,7 +28,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void AddAnAuthorAndBookViewResultNotNull()
+        public void AddAnAuthorAndBook_ViewResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -42,7 +40,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void DeleteAnAuthorViewResultNotNull()
+        public void DeleteAnAuthor_ViewResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -54,7 +52,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void UpdateBookNameViewResultNotNull()
+        public void UpdateBookName_ViewResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -66,7 +64,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void DeleteABookViewResultNotNull()
+        public void DeleteABook_ViewResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -78,7 +76,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void UpdateProgressViewResultNotNull()
+        public void UpdateProgress_ViewResultNotNull()
         {
             //Arrange
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
@@ -90,7 +88,7 @@ namespace BookLib.Tests
             Assert.IsNotNull(result);
         }
         [Test]
-        public void IndexViewResultNotNull()
+        public void Index_ViewResultNotNull()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -102,9 +100,9 @@ namespace BookLib.Tests
             Assert.IsNotNull(result.Model);
         }
         #endregion
-        #region ThrowsException_POST
+        #region ThrowsException
         [Test]
-        public void IndexThrowsException_POST()
+        public void GetBooks_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -116,7 +114,7 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.GetBooks(), Throws.Exception);
         }
         [Test]
-        public void AddAnAuthorAndBookThrowsException_POST()
+        public void AddAnAuthorAndBook_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -128,7 +126,7 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.AddAnAuthorAndBook(null, null), Throws.Exception);
         }
         [Test]
-        public void DeleteAnAuthorThrowsException_POST()
+        public void DeleteAnAuthor_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -140,7 +138,7 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.DeleteAnAuthor(null), Throws.Exception);
         }
         [Test]
-        public void UpdateBookNameThrowsException_POST()
+        public void UpdateBookName_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -152,7 +150,7 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.UpdateBookName(null, null), Throws.Exception);
         }
         [Test]
-        public void DeleteABookThrowsException_POST()
+        public void DeleteABook_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -164,7 +162,7 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.DeleteABook(null), Throws.Exception);
         }
         [Test]
-        public void UpdateProgressThrowsException_POST()
+        public void UpdateProgress_ThrowsException()
         {
             //Arrange
             var mock = new Mock<ILibService>();
@@ -176,9 +174,9 @@ namespace BookLib.Tests
             Assert.That(() => mock.Object.UpdateProgress(null, null), Throws.Exception);
         }
         #endregion
-        #region Verify_POST
+        #region VerifyInLibService
         [Test]
-        public void Index_Verify_POST()
+        public void GetBooks_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -189,7 +187,7 @@ namespace BookLib.Tests
             mock.Verify(a => a.GetBooks());
         }
         [Test]
-        public void AddAnAuthorAndBook_Verify_POST()
+        public void AddAnAuthorAndBook_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -200,7 +198,7 @@ namespace BookLib.Tests
             mock.Verify(a => a.AddAnAuthorAndBook("Новий", "Нова"));
         }
         [Test]
-        public void DeleteAnAuthor_Verify_POST()
+        public void DeleteAnAuthor_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -211,7 +209,7 @@ namespace BookLib.Tests
             mock.Verify(a => a.DeleteAnAuthor("Новий"));
         }
         [Test]
-        public void UpdateBookName_Verify_POST()
+        public void UpdateBookName_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -222,7 +220,7 @@ namespace BookLib.Tests
             mock.Verify(a => a.UpdateBookName("Нова", "Новіша"));
         }
         [Test]
-        public void DeleteABook_Verify_POST()
+        public void DeleteABook_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -233,7 +231,7 @@ namespace BookLib.Tests
             mock.Verify(a => a.DeleteABook("Нова"));
         }
         [Test]
-        public void UpdateProgress_Verify_POST()
+        public void UpdateProgress_VerifyInLibService()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -246,18 +244,7 @@ namespace BookLib.Tests
         #endregion
         #region RedirectToPage_POST
         [Test]
-        public void IndexRedirectToPage_POST()
-        {
-            // arrange
-            var mock = new Mock<ILibService>();
-            HomeController controller = new HomeController(mock.Object);
-            // act
-            ViewResult result = controller.Index();
-            //assert
-            Assert.That(result.ViewName, Is.EqualTo("Index"));
-        }
-        [Test]
-        public void AddAnAuthorAndBookRedirectToPage_POST()
+        public void Index_RedirectToPage_POST()
         {
             // arrange
             var mock = new Mock<ILibService>();
@@ -269,52 +256,123 @@ namespace BookLib.Tests
             Assert.That(result.PageName, Is.EqualTo("Index"));
         }
         [Test]
-        public void DeleteAnAuthorRedirectToPage_POST()
+        public void AddAnAuthorAndBook_RedirectToPage_POST()
         {
             // arrange
             var mock = new Mock<ILibService>();
             HomeController controller = new HomeController(mock.Object);
             // act
-            RedirectToPageResult result = controller.RedirectToPage("Index");
+            RedirectToPageResult result = controller.RedirectToPage("AddAnAuthorAndBook");
             //assert
             Assert.IsNotNull(result);
-            Assert.That(result.PageName, Is.EqualTo("Index"));
+            Assert.That(result.PageName, Is.EqualTo("AddAnAuthorAndBook"));
         }
         [Test]
-        public void UpdateBookNameRedirectToPage_POST()
+        public void DeleteAnAuthor_RedirectToPage_POST()
         {
             // arrange
             var mock = new Mock<ILibService>();
             HomeController controller = new HomeController(mock.Object);
             // act
-            RedirectToPageResult result = controller.RedirectToPage("Index");
+            RedirectToPageResult result = controller.RedirectToPage("DeleteAnAuthor");
             //assert
             Assert.IsNotNull(result);
-            Assert.That(result.PageName, Is.EqualTo("Index"));
+            Assert.That(result.PageName, Is.EqualTo("DeleteAnAuthor"));
         }
         [Test]
-        public void DeleteABookRedirectToPage_POST()
+        public void UpdateBookName_RedirectToPage_POST()
         {
             // arrange
             var mock = new Mock<ILibService>();
             HomeController controller = new HomeController(mock.Object);
             // act
-            RedirectToPageResult result = controller.RedirectToPage("Index");
+            RedirectToPageResult result = controller.RedirectToPage("UpdateBookName");
             //assert
             Assert.IsNotNull(result);
-            Assert.That(result.PageName, Is.EqualTo("Index"));
+            Assert.That(result.PageName, Is.EqualTo("UpdateBookName"));
         }
         [Test]
-        public void UpdateProgressRedirectToPage_POST()
+        public void DeleteABook_RedirectToPage_POST()
         {
             // arrange
             var mock = new Mock<ILibService>();
             HomeController controller = new HomeController(mock.Object);
             // act
-            RedirectToPageResult result = controller.RedirectToPage("Index");
+            RedirectToPageResult result = controller.RedirectToPage("DeleteABook");
             //assert
             Assert.IsNotNull(result);
-            Assert.That(result.PageName, Is.EqualTo("Index"));
+            Assert.That(result.PageName, Is.EqualTo("DeleteABook"));
+        }
+        [Test]
+        public void UpdateProgress_RedirectToPage_POST()
+        {
+            // arrange
+            var mock = new Mock<ILibService>();
+            HomeController controller = new HomeController(mock.Object);
+            // act
+            RedirectToPageResult result = controller.RedirectToPage("UpdateProgress");
+            //assert
+            Assert.IsNotNull(result);
+            Assert.That(result.PageName, Is.EqualTo("UpdateProgress"));
+        }
+        #endregion
+        #region CreateAnObject
+        [Test]
+        public void HomeController_CreateAnObject()
+        {
+            // arrange
+            string expected = "HomeController";
+            var mock = new Mock<ILibService>();
+            // act
+            HomeController controller = new HomeController(mock.Object);
+            //assert
+            Assert.IsNotNull(controller);
+            Assert.AreEqual(expected, controller.GetType().Name);
+        }
+        [Test]
+        public void LibService_CreateAnObject()
+        {
+            // arrange
+            string expected = "LibService";
+            UnitOfWork unit = new UnitOfWork();
+            // act
+            LibService libService = new LibService(unit);
+            //assert
+            Assert.IsNotNull(libService);
+            Assert.AreEqual(expected, libService.GetType().Name);
+        }
+        [Test]
+        public void ValidationException_CreateAnObject()
+        {
+            // arrange
+            string expected = "ValidationException";
+            // act
+            ValidationException ex = new ValidationException("Test Exception","");
+            //assert
+            Assert.IsNotNull(ex);
+            Assert.AreEqual(expected, ex.GetType().Name);
+        }
+        [Test]
+        public void BookInfoDTO_CreateAnObject()
+        {
+            // arrange
+            string expected = "BookInfoDTO";
+            // act
+            BookInfoDTO book = new BookInfoDTO();
+            //assert
+            Assert.IsNotNull(book);
+            Assert.AreEqual(expected, book.GetType().Name);
+        }
+        [Test]
+        public void BookInfoViewModel_CreateAnObject()
+        {
+            // arrange
+            string expected = "BookInfoViewModel";
+            // act
+            BookInfoViewModel book = new BookInfoViewModel();
+            //assert
+            Assert.IsNotNull(book);
+            Assert.AreEqual(expected, book.GetType().Name);
         }
         #endregion
     }
