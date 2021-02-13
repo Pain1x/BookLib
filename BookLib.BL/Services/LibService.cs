@@ -30,11 +30,12 @@ namespace BookLib.BL.Services
         /// </summary>
         /// <param name="authorname">The Name of an author of a book</param>
         /// <param name="bookname">The boook's name</param>
-        public void AddAnAuthorAndBook(string authorname, string bookname)
+        public int AddAnAuthorAndBook(string authorname, string bookname)
         {
             try
             {
                 Database.ADO.AddAnAuthorAndBook(authorname, bookname);
+                return 1;
             }
             catch
             {
@@ -45,11 +46,12 @@ namespace BookLib.BL.Services
         /// Deletes a book from a database
         /// </summary>
         /// <param name="bookname">The name of the book to delete</param>
-        public void DeleteABook(string bookname)
+        public int DeleteABook(string bookname)
         {
             try
             {
                 Database.ADO.DeleteABook(bookname);
+                return 1;
             }
             catch
             {
@@ -60,11 +62,12 @@ namespace BookLib.BL.Services
         /// Deletes an author from a database
         /// </summary>
         /// <param name="authorname">The name of an author to delete</param>
-        public void DeleteAnAuthor(string authorname)
+        public int DeleteAnAuthor(string authorname)
         {
             try
             {
                 Database.ADO.DeleteAnAuthor(authorname);
+                return 1;
             }
             catch
             {
@@ -93,11 +96,12 @@ namespace BookLib.BL.Services
         /// </summary>
         /// <param name="bookname">The name of book which you want to change</param>
         /// <param name="newbookname">The new name of a book</param>
-        public void UpdateBookName(string bookname, string newbookname)
+        public int UpdateBookName(string bookname, string newbookname)
         {
             try
             {
                 Database.ADO.UpdateBookName(bookname, newbookname);
+                return 1;
             }
             catch
             {
@@ -109,11 +113,12 @@ namespace BookLib.BL.Services
         /// </summary>
         /// <param name="finishpage">The page where you have finished reading</param>
         /// <param name="bookname">The name of the book which you are reading</param>
-        public void UpdateProgress(string finishpage, string bookname)
+        public int UpdateProgress(string finishpage, string bookname)
         {
             try
             {
                 Database.ADO.UpdateProgress(finishpage, bookname);
+                return 1;
             }
             catch
             {

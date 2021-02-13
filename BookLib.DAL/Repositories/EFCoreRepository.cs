@@ -23,7 +23,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="authorname">The Name of an author of a book</param>
         /// <param name="bookname">The boook's name</param>
-        public void AddAnAuthorAndBook(string authorname, string bookname)
+        public int AddAnAuthorAndBook(string authorname, string bookname)
         {
             using (BookLibContext db = new BookLibContext())
             {
@@ -38,12 +38,14 @@ namespace BookLib.DAL.Repositories
                         db.Authors.Add(au);
                         db.Books.Add(bo);
                         db.SaveChanges();
+                        return 1;
                     }
                     else
                     {
                         Book bo = new Book { BookName = bookname, Authors = author };
                         db.Books.Add(bo);
                         db.SaveChanges();
+                        return 1;
                     }
                 }
                 else
@@ -56,7 +58,7 @@ namespace BookLib.DAL.Repositories
         /// Deletes a book from a database
         /// </summary>
         /// <param name="bookname">The name of a book to delete</param>
-        public void DeleteABook(string bookname)
+        public int DeleteABook(string bookname)
         {
             using (BookLibContext db = new BookLibContext())
             {
@@ -69,6 +71,7 @@ namespace BookLib.DAL.Repositories
                 {
                     db.Books.Remove(book);
                     db.SaveChanges();
+                    return 1;
                 }
             }
         }
@@ -76,7 +79,7 @@ namespace BookLib.DAL.Repositories
         /// Deletes an author from a database with all theirs book
         /// </summary>
         /// <param name="authorname">The name of an author to delete</param>
-        public void DeleteAnAuthor(string authorname)
+        public int DeleteAnAuthor(string authorname)
         {
             using (BookLibContext db = new BookLibContext())
             {
@@ -89,6 +92,7 @@ namespace BookLib.DAL.Repositories
                 {
                     db.Authors.Remove(author);
                     db.SaveChanges();
+                    return 1;
                 }
             }
         }
@@ -97,7 +101,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="bookname">The name of book which you want to change></param>
         /// <param name="newbookname">The new name of a book</param>
-        public void UpdateBookName(string bookname, string newbookname)
+        public int UpdateBookName(string bookname, string newbookname)
         {
             using (BookLibContext db = new BookLibContext())
             {
@@ -111,6 +115,7 @@ namespace BookLib.DAL.Repositories
                     book.BookName = newbookname;
                     db.Books.Update(book);
                     db.SaveChanges();
+                    return 1;
                 }
             }
         }
@@ -119,7 +124,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="finishpage">The page on which you have ended</param>
         /// <param name="bookname">The name of the book you are reading</param>
-        public void UpdateProgress(string finishpage, string bookname)
+        public int UpdateProgress(string finishpage, string bookname)
         {
             using (BookLibContext db = new BookLibContext())
             {
@@ -136,6 +141,7 @@ namespace BookLib.DAL.Repositories
                         progress.FinishPage = finishpage;
                         db.ReadingProgresses.Update(progress);
                         db.SaveChanges();
+                        return 1;
                     }
                     else
                     {

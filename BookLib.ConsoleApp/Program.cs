@@ -9,7 +9,6 @@ namespace BookLib.ConsoleApp
     class Program
     {
         #region Properties
-        //TODO:MVC
         //Holds the color of a font in console
         static ConsoleColor color = Console.ForegroundColor;
         static readonly BookLibContext db = new BookLibContext();

@@ -9,11 +9,11 @@ namespace BookLib.DAL.Interfaces
     public interface IDataRepository
     {
         //Methods that has to be implemented
-        public void AddAnAuthorAndBook(string authorname, string bookname);
+        public int AddAnAuthorAndBook(string authorname, string bookname);
         public IEnumerable<BookInfo> GetBooks();
-        public void UpdateProgress(string finishpage, string bookname);
-        public void UpdateBookName(string bookname, string newbookname);
-        public void DeleteABook(string bookname);
-        public void DeleteAnAuthor(string authorname);
+        public int UpdateProgress(string finishpage, string bookname);
+        public int UpdateBookName(string bookname, string newbookname);
+        public int DeleteABook(string bookname);
+        public int DeleteAnAuthor(string authorname);
     }
 }

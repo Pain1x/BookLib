@@ -17,17 +17,19 @@ namespace BookLib.DAL.Repositories
         //Gets the connection string
         string connectionString;
         #endregion
+        #region Constructor
         public AdoRepository()
         {
             connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
         }
+        #endregion
         #region Public Methods
         /// <summary>
         /// Inserts an author and a book into database
         /// </summary>
         /// <param name="authorname">The Name of an author of a book</param>
         /// <param name="bookname">The boook's name</param>
-        public void AddAnAuthorAndBook(string authorname, string bookname)
+        public int AddAnAuthorAndBook(string authorname, string bookname)
         {
             if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
             {
@@ -56,7 +58,7 @@ namespace BookLib.DAL.Repositories
                     };
                     cmd.Parameters.Add(authorParam);
                     cmd.Parameters.Add(bookParam);
-                    cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -98,7 +100,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="finishpage">The page where you have finished reading</param>
         /// <param name="bookname">The name of the book which you are reading</param>
-        public void UpdateProgress(string finishpage, string bookname)
+        public int UpdateProgress(string finishpage, string bookname)
         {
             if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
             {
@@ -125,7 +127,7 @@ namespace BookLib.DAL.Repositories
                         };
                         cmd.Parameters.Add(finishParam);
                         cmd.Parameters.Add(bookParam);
-                        cmd.ExecuteNonQuery();
+                        return cmd.ExecuteNonQuery();
                     }
                     else
                     {
@@ -143,7 +145,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="bookname">The name of book which you want to change</param>
         /// <param name="newbookname">The new name of a book</param>
-        public void UpdateBookName(string bookname, string newbookname)
+        public int UpdateBookName(string bookname, string newbookname)
         {
             if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
             {
@@ -167,7 +169,7 @@ namespace BookLib.DAL.Repositories
                     };
                     cmd.Parameters.Add(newBookParam);
                     cmd.Parameters.Add(bookParam);
-                    cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
                 }
             }
             else
@@ -179,7 +181,7 @@ namespace BookLib.DAL.Repositories
         /// Deletes a book from a database
         /// </summary>
         /// <param name="bookname">The name of the book to delete</param>
-        public void DeleteABook(string bookname)
+        public int DeleteABook(string bookname)
         {
             if (IsBookInDb(bookname) & !string.IsNullOrEmpty(bookname))
             {
@@ -196,7 +198,7 @@ namespace BookLib.DAL.Repositories
                         Value = bookname
                     };
                     cmd.Parameters.Add(bookParam);
-                    cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
                 }
             }
             else
@@ -209,7 +211,7 @@ namespace BookLib.DAL.Repositories
         /// Deletes an author from a database
         /// </summary>
         /// <param name="authorname">The name of an author to delete</param>
-        public void DeleteAnAuthor(string authorname)
+        public int DeleteAnAuthor(string authorname)
         {
             if (IsAuthorInDb(authorname) & !string.IsNullOrEmpty(authorname))
             {
@@ -225,7 +227,7 @@ namespace BookLib.DAL.Repositories
                         Value = authorname
                     };
                     cmd.Parameters.Add(authorParam);
-                    cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQuery();
                 }
             }
             else
