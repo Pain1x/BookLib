@@ -3,8 +3,9 @@ using BookLib.BL.Interfaces;
 using BookLib.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using AutoMapper;
 using BookLib.BL.Infrastructure;
+using BookLib.WebApp.Pagination;
+using System.Linq;
 
 namespace BookLib.WebApp.Controllers
 {
@@ -28,14 +29,15 @@ namespace BookLib.WebApp.Controllers
         /// Returns the view with list of books
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             try
             {
-                IEnumerable<BookInfoDTO> bookinfo = libService.GetBooks();
-                var mapper = new MapperConfiguration(config => config.CreateMap<BookInfoDTO, BookInfoViewModel>()).CreateMapper();
-                var books = mapper.Map<IEnumerable<BookInfoDTO>, List<BookInfoViewModel>>(bookinfo);
-                return View(books);
+                int pagesize = 10;
+                IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks().Skip((page - 1) * pagesize).Take(pagesize);
+                PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), page, pagesize);
+                BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
+                return View(bvm);
             }
             catch (ValidationException ex)
             {

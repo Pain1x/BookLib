@@ -1,28 +1,21 @@
-﻿@model IEnumerable<BookLib.WebApp.Models.BookInfoViewModel>
+﻿@model BookLib.WebApp.Models.BookInfoViewModel
 @{
     ViewData["Title"] = "List of books";
 }
 
 <h1 style="text-align:center">@ViewData["Title"]</h1>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinishPage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsCompleted)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <thead>
+        <tr>
+            <th>AuthorName</th>
+            <th>BookName</th>
+            <th>IsCompleted</th>
+            <th>FinishPage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -37,5 +30,18 @@
                 @Html.DisplayFor(modelItem => item.IsCompleted)
             </td>
         </tr>
-    }
+        }
+    </tbody>
 </table>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageInfo.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Previous page
+    </a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageInfo.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Next page
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>

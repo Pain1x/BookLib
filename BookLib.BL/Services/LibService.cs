@@ -5,6 +5,7 @@ using BookLib.BL.Interfaces;
 using BookLib.DAL.Entities;
 using BookLib.DAL.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookLib.BL.Services
 {
