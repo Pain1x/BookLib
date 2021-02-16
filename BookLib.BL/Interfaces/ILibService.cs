@@ -8,12 +8,12 @@ namespace BookLib.BL.Interfaces
     /// </summary>
     public interface ILibService
     {
-        public int AddAnAuthorAndBook(string authorname, string bookname);
+        public void AddAnAuthorAndBook(string authorname, string bookname);
         public IEnumerable<BookInfoDTO> GetBooks();
-        public int UpdateProgress(string finishpage, string bookname);
-        public int UpdateBookName(string bookname, string newbookname);
-        public int DeleteABook(string bookname);
-        public int DeleteAnAuthor(string authorname);
+        public void UpdateProgress(string finishpage, string bookname);
+        public void UpdateBookName(string bookname, string newbookname);
+        public void DeleteABook(string bookname);
+        public void DeleteAnAuthor(string authorname);
         public IEnumerable<AuthorDTO> GetAuthors();
     }
 }

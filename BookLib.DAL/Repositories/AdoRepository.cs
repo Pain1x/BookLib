@@ -20,7 +20,7 @@ namespace BookLib.DAL.Repositories
         #region Constructor
         public AdoRepository()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
         }
         #endregion
         #region Public Methods
