@@ -1,34 +1,17 @@
-using BookLib.BL.DTO;
 using BookLib.BL.Infrastructure;
 using BookLib.BL.Interfaces;
-using BookLib.BL.Services;
-using BookLib.DAL.Interfaces;
-using BookLib.DAL.Repositories;
 using BookLib.WebApp.Controllers;
 using BookLib.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace BookLib.Tests.HomeControllerTest
+namespace BookLib.Tests.ControllersTests
 {
     [TestFixture]
     public class HomeControllerTest
     {
-        #region ViewResultNotNull
-        [Test]
-        public void Index_ContentResultNotNull()
-        {
-            //Arrange
-            IUnitOfWork unitOfWorkTest = new UnitOfWork();
-            ILibService libServiceTest = new LibService(unitOfWorkTest);
-            HomeController controller = new HomeController(libServiceTest);
-            //Act
-            ContentResult result = controller.Index() as ContentResult;
-            //Assert
-            Assert.IsNotNull(result);
-        }
-      
+        #region ViewResultNotNull      
         [Test]
         public void Index_ViewResultNotNull()
         {

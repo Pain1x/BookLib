@@ -2,6 +2,7 @@
 
 namespace BookLib.WebApp.Pagination
 {
+    //Helper class that implements pagination
     public class PageInfo
     {
         public int PageNumber { get; private set; }

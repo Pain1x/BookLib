@@ -37,21 +37,27 @@
     <tbody>
         <tr>
             <td style="padding-right: 440px;">
-                <a asp-action="Index"
-                   asp-route-page="@(Model.PageInfo.PageNumber - 1)"
-                   class="btn btn-outline-dark">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    Previous page
-                </a>
-            </td>
+                @if (Model.PageInfo.HasPreviousPage)
+                {
+                    <a asp-action="Index"
+                       asp-route-page="@(Model.PageInfo.PageNumber - 1)"
+                       class="btn btn-outline-dark">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous page
+                    </a>
+                }
+                </td>                
             <td style="padding-left: 440px;">
-                <a asp-action="Index"
-                   asp-route-page="@(Model.PageInfo.PageNumber + 1)"
-                   class="btn btn-outline-dark">
-                    Next page
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </a>
-            </td>
+                @if (Model.PageInfo.HasNextPage)
+                {
+                    <a asp-action="Index"
+                       asp-route-page="@(Model.PageInfo.PageNumber + 1)"
+                       class="btn btn-outline-dark">
+                        Next page
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </a>
+                }
+                </td>
         </tr>
     </tbody>
 </table>

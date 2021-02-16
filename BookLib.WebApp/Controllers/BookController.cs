@@ -11,7 +11,6 @@ namespace BookLib.WebApp.Controllers
 {
     public class BookController : Controller
     {
-        //TODO:
         #region Private Members
         ILibService libService;
         #endregion
@@ -75,15 +74,15 @@ namespace BookLib.WebApp.Controllers
         [HttpPost]
         public IActionResult AddAnAuthorAndBook(string authorname, string bookname)
         {
-                try
-                {
-                    libService.AddAnAuthorAndBook(authorname, bookname);
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (ValidationException ex)
-                {
-                    return Content(ex.Message.ToString());
-                }
+            try
+            {
+                libService.AddAnAuthorAndBook(authorname, bookname);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (ValidationException ex)
+            {
+                return Content(ex.Message.ToString());
+            }
         }
 
         /// <summary>

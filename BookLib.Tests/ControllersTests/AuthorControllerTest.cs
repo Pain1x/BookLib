@@ -1,14 +1,11 @@
 ﻿using BookLib.BL.Infrastructure;
 using BookLib.BL.Interfaces;
-using BookLib.BL.Services;
-using BookLib.DAL.Interfaces;
-using BookLib.DAL.Repositories;
 using BookLib.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace BookLib.Tests.AuthorControllerTest
+namespace BookLib.Tests.ControllersTests
 {
     [TestFixture]
     class AuthorControllerTest
@@ -18,13 +15,16 @@ namespace BookLib.Tests.AuthorControllerTest
         public void DeleteAnAuthor_ViewResultNotNull()
         {
             //Arrange
-            IUnitOfWork unitOfWorkTest = new UnitOfWork();
-            ILibService libServiceTest = new LibService(unitOfWorkTest);
-            AuthorController controller = new AuthorController(libServiceTest);
+            var mock = new Mock<ILibService>();
+            string authorname = "Автор";
+            mock.Setup(a => a.DeleteAnAuthor(authorname));
+            AuthorController controller = new AuthorController(mock.Object);
+
             //Act
             ViewResult result = controller.DeleteAnAuthor() as ViewResult;
+
             //Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
         }
         #endregion
         #region ThrowsException

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace BookLib.Tests.BookControllerTest
+namespace BookLib.Tests.ControllersTests
 {
     [TestFixture]
     class BookControllerTest
@@ -18,13 +18,17 @@ namespace BookLib.Tests.BookControllerTest
         public void UpdateProgress_ViewResultNotNull()
         {
             //Arrange
-            IUnitOfWork unitOfWorkTest = new UnitOfWork();
-            ILibService libServiceTest = new LibService(unitOfWorkTest);
-            BookController controller = new BookController(libServiceTest);
+            var mock = new Mock<ILibService>();
+            string finishpage = "54";
+            string bookname = "Книжка";
+            mock.Setup(a => a.UpdateProgress(finishpage, bookname));
+            BookController controller = new BookController(mock.Object);
+
             //Act
             ViewResult result = controller.UpdateProgress() as ViewResult;
+
             //Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
         }
 
         [Test]
@@ -44,26 +48,33 @@ namespace BookLib.Tests.BookControllerTest
         public void UpdateBookName_ViewResultNotNull()
         {
             //Arrange
-            IUnitOfWork unitOfWorkTest = new UnitOfWork();
-            ILibService libServiceTest = new LibService(unitOfWorkTest);
-            BookController controller = new BookController(libServiceTest);
+            var mock = new Mock<ILibService>();
+            string newbookname = "54";
+            string bookname = "Книжка";
+            mock.Setup(a => a.UpdateBookName(bookname, newbookname));
+            BookController controller = new BookController(mock.Object);
+
             //Act
             ViewResult result = controller.UpdateBookName() as ViewResult;
+
             //Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
         }
 
         [Test]
         public void DeleteABook_ViewResultNotNull()
         {
             //Arrange
-            IUnitOfWork unitOfWorkTest = new UnitOfWork();
-            ILibService libServiceTest = new LibService(unitOfWorkTest);
-            BookController controller = new BookController(libServiceTest);
+            var mock = new Mock<ILibService>();
+            string bookname = "Книжка";
+            mock.Setup(a => a.DeleteABook(bookname));
+            BookController controller = new BookController(mock.Object);
+
             //Act
             ViewResult result = controller.DeleteABook() as ViewResult;
+
             //Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
         }
         #endregion
         #region Throws_Exception

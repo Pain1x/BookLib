@@ -34,14 +34,15 @@ namespace BookLib.WebApp.Controllers
             try
             {
                 int pagesize = 10;
-                IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks().Skip((page - 1) * pagesize).Take(pagesize);
-                PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), page, pagesize);
-                BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
+                IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+                int totalpages = bookinfoDTO.Count();
+                PageInfo pageinfo = new PageInfo(totalpages, page, pagesize);
+                BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO.Skip((page - 1) * pagesize).Take(pagesize) };
                 return View(bvm);
             }
             catch (ValidationException ex)
             {
-                return Content(ex.Message.ToString());
+                return new BadRequestObjectResult(ex.Message);
             }
         }
        
