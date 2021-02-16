@@ -1,6 +1,11 @@
-﻿using BookLib.BL.Infrastructure;
+﻿using BookLib.BL.DTO;
+using BookLib.BL.Infrastructure;
 using BookLib.BL.Interfaces;
+using BookLib.WebApp.Models;
+using BookLib.WebApp.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookLib.WebApp.Controllers
 {
@@ -22,7 +27,10 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult DeleteAnAuthor()
         {
-            return View();
+            IEnumerable<AuthorDTO> authorinfoDTO = libService.GetAuthors();
+            PageInfo pageinfo = new PageInfo(authorinfoDTO.Count(), 0, 5);
+            BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Authors = authorinfoDTO };
+            return View(bvm);
         }
         #endregion
         #region POST Methods

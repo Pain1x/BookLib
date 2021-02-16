@@ -1,11 +1,17 @@
-﻿using BookLib.BL.Infrastructure;
+﻿using BookLib.BL.DTO;
+using BookLib.BL.Infrastructure;
 using BookLib.BL.Interfaces;
+using BookLib.WebApp.Models;
+using BookLib.WebApp.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookLib.WebApp.Controllers
 {
     public class BookController : Controller
     {
+        //TODO:
         #region Private Members
         ILibService libService;
         #endregion
@@ -31,7 +37,10 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult UpdateBookName()
         {
-            return View();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
+            BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
+            return View(bvm);
         }
         /// <summary>
         /// Returns the view
@@ -39,7 +48,10 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult DeleteABook()
         {
-            return View();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
+            BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
+            return View(bvm);
         }
         /// <summary>
         /// Returns the view
@@ -47,7 +59,10 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult UpdateProgress()
         {
-            return View();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
+            BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
+            return View(bvm);
         }
         #endregion
         #region POST Methods
@@ -60,15 +75,15 @@ namespace BookLib.WebApp.Controllers
         [HttpPost]
         public IActionResult AddAnAuthorAndBook(string authorname, string bookname)
         {
-            try
-            {
-                libService.AddAnAuthorAndBook(authorname, bookname);
-                return RedirectToAction("Index","Home");
-            }
-            catch (ValidationException ex)
-            {
-                return Content(ex.Message.ToString());
-            }
+                try
+                {
+                    libService.AddAnAuthorAndBook(authorname, bookname);
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (ValidationException ex)
+                {
+                    return Content(ex.Message.ToString());
+                }
         }
 
         /// <summary>

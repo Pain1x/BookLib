@@ -1,12 +1,35 @@
-﻿@{
+﻿@model BookLib.WebApp.Models.BookInfoViewModel
+
+@{
     ViewData["Title"] = "Enter the name of a book to change";
 }
 <h1>@ViewData["Title"]</h1>
 
-<div id="BookForm" style="text-align: center;">
-    <form method="post" asp-controller="Book" asp-action="UpdateBookName">
-        <input size="50" name="bookname" required placeholder="Enter the name of a book" />
-        <input size="50" name="newbookname" required placeholder="Enter the new name of a book" />
-        <input type="submit" value="Rename" />
-    </form>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateBookName">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Actual name of a book</label>
+                <select class="form-control" name="bookname">
+                    @foreach (var item in Model.Books)
+                    {
+                        <option> @Html.DisplayFor(modelItem => item.BookName)</option>
+                    }
+                </select>
+                <span asp-validation-for="BookName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">New name of a book</label>
+                <input class="form-control" name="newbookname" />
+                <span asp-validation-for="BookName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a  asp-controller="Home" asp-action="Index">Back to List</a>
 </div>

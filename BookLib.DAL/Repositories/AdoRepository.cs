@@ -234,7 +234,33 @@ namespace BookLib.DAL.Repositories
             {
                 throw new Exception("There is no such an author in a database");
             }
+        }
 
+        public IEnumerable<Author> GetAuthors()
+        {
+            //Selects every author from a table
+            string sqlProcedure = "sp_SelectAuthors";
+            List<Author> table = new List<Author>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sqlProcedure, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                       Author rt = new Author
+                        {
+                            Name = reader.GetString(0),
+                        };
+                        table.Add(rt);
+                    }
+                }
+                reader.Close();
+            }
+            return table;
         }
         /// <summary>
         /// Checks if the book is in database

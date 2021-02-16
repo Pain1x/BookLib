@@ -126,5 +126,22 @@ namespace BookLib.BL.Services
                 throw new ValidationException("There is no such book in library", "");
             }
         }
+        /// <summary>
+        /// Gets a list of authors
+        /// </summary>
+        /// <returns>The data from a database</returns>
+        public IEnumerable<AuthorDTO> GetAuthors()
+        {
+            try
+            {
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<Author, AuthorDTO>());
+                var mapper = new Mapper(config);
+                return mapper.Map<IEnumerable<AuthorDTO>>(Database.ADO.GetAuthors());
+            }
+            catch
+            {
+                throw new ValidationException("Something went wrong", "");
+            }
+        }
     }
 }

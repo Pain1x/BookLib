@@ -1,11 +1,29 @@
-﻿@{
+﻿@model BookLib.WebApp.Models.BookInfoViewModel
+@{
     ViewData["Title"] = "Enter the name of an author to delete";
 }
 <h1>@ViewData["Title"]</h1>
 
-<div id="AuthorForm" style="text-align: center;">
-    <form method="post" asp-controller="Author" asp-action="DeleteAnAuthor">
-        <input size="50" name="authorname" required placeholder="Enter the name of an author" />
-        <input type="submit" value="Delete an author" />
-    </form>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteAnAuthor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Name of an author</label>
+                <select class="form-control" name="authorname">
+                    @foreach (var item in Model.Authors)
+                    {
+                    <option> @Html.DisplayFor(modelItem => item.Name)</option>
+                    }
+                </select>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>

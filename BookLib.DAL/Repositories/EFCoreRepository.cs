@@ -151,11 +151,10 @@ namespace BookLib.DAL.Repositories
             }
         }
         /// <summary>
-        /// Returns the book from a database
+        /// Returns the books from a database
         /// </summary>
         public IEnumerable<BookInfo> GetBooks()
         {
-            //Fixes the bug without using
             using (BookLibContext db = new BookLibContext())
             {
                 return (from b in db.Books
@@ -171,6 +170,22 @@ namespace BookLib.DAL.Repositories
                             FinishPage = b.ReadingProgress.FinishPage,
                             IsCompleted = b.ReadingProgress.IsCompleted
                         }).ToList();
+            }
+        }
+        /// <summary>
+        /// Returns the authors from a database
+        /// </summary>
+        public IEnumerable<Author> GetAuthors()
+        {
+            using (BookLibContext db = new BookLibContext())
+            {
+                return (from a in db.Authors
+                        orderby a.Name
+                        select new Author
+                        { 
+                            Name=a.Name
+                        }).ToList();
+
             }
         }
         #endregion

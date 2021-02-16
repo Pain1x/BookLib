@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BookLib.WebApp.Controllers
 {
-    //TODO:Pagination?
+    //TODO:
     /// <summary>
     /// Main controller of an app
     /// </summary>

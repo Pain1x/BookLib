@@ -1,12 +1,29 @@
-﻿@{
+﻿@model BookLib.WebApp.Models.BookInfoViewModel
+@{
     ViewData["Title"] = "Enter the name of a book to add";
 }
 <h1>@ViewData["Title"]</h1>
 
-    <div id="BookForm" style="text-align: center;">
-        <form method="post" asp-controller="Book" asp-action="AddAnAuthorAndBook">
-            <input size="50" name="bookname" required placeholder="Enter the name of a book" />
-            <input size="50" name="authorname" required placeholder="Enter the name of an author" />
-            <input type="submit" value="Add a book" />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddAnAuthorAndBook">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Name of a book</label>
+                <input class="form-control" name="bookname" />
+                <span asp-validation-for="BookName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Name of an author</label>
+                <input class="form-control" name="authorname" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
         </form>
     </div>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>

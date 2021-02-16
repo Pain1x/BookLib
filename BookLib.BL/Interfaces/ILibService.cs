@@ -14,5 +14,6 @@ namespace BookLib.BL.Interfaces
         public int UpdateBookName(string bookname, string newbookname);
         public int DeleteABook(string bookname);
         public int DeleteAnAuthor(string authorname);
+        public IEnumerable<AuthorDTO> GetAuthors();
     }
 }

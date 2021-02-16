@@ -16,32 +16,87 @@
     <tbody>
         @foreach (var item in Model.Books)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishPage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsCompleted)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishPage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCompleted)
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageInfo.PageNumber - 1)"
-       class="btn btn-outline-dark">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Previous page
-    </a>
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageInfo.PageNumber + 1)"
-       class="btn btn-outline-dark">
-        Next page
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
+<table style="margin-bottom:10px">
+    <tbody>
+        <tr>
+            <td style="padding-right: 440px;">
+                <a asp-action="Index"
+                   asp-route-page="@(Model.PageInfo.PageNumber - 1)"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Previous page
+                </a>
+            </td>
+            <td style="padding-left: 440px;">
+                <a asp-action="Index"
+                   asp-route-page="@(Model.PageInfo.PageNumber + 1)"
+                   class="btn btn-outline-dark">
+                    Next page
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table>
+    <tbody>
+        <tr>
+            <td style="padding-right: 200px;">
+                <a asp-controller="Book" asp-action="UpdateProgress"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Update your reading progress
+                </a>
+            </td>
+            <td style="padding-right: 110px;">
+                <a asp-controller="Book" asp-action="AddAnAuthorAndBook"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Add a book
+                </a>
+            </td>
+            <td style="padding-right: 110px;">
+                <a asp-controller="Book" asp-action="UpdateBookName"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Edit a book
+                </a>
+            </td>
+            <td style="padding-right: 110px;">
+                <a asp-controller="Book" asp-action="DeleteABook"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Delete a book
+                </a>
+            </td>
+            <td style="padding-left: 100px;">
+                <a asp-controller="Author" asp-action="DeleteAnAuthor"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Delete an author
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
