@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using BookLib.BL.Infrastructure;
 using BookLib.WebApp.Pagination;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace BookLib.WebApp.Controllers
 {
@@ -17,11 +19,15 @@ namespace BookLib.WebApp.Controllers
     {
         #region Private Members
         ILibService libService;
+        private readonly IConfiguration configuration;
+        string connectionString;
         #endregion
         #region Constructor
-        public HomeController(ILibService service)
+        public HomeController(ILibService service, IConfiguration config)
         {
             libService = service;
+            configuration = config;
+            connectionString= configuration.GetConnectionString("Main");
         }
         #endregion
         #region GET Methods
@@ -34,7 +40,7 @@ namespace BookLib.WebApp.Controllers
             try
             {
                 int pagesize = 10;
-                IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+                IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks(connectionString);
                 int totalpages = bookinfoDTO.Count();
                 PageInfo pageinfo = new PageInfo(totalpages, page, pagesize);
                 BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO.Skip((page - 1) * pagesize).Take(pagesize) };
@@ -42,7 +48,8 @@ namespace BookLib.WebApp.Controllers
             }
             catch (ValidationException ex)
             {
-                return new BadRequestObjectResult(ex.Message);
+                return Content(ex.Message.ToString());
+
             }
         }
        

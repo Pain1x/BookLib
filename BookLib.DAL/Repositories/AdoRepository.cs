@@ -2,7 +2,6 @@
 using BookLib.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -15,12 +14,11 @@ namespace BookLib.DAL.Repositories
     {
         #region Private Members
         //Gets the connection string
-        string connectionString;
         #endregion
         #region Constructor
         public AdoRepository()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
+
         }
         #endregion
         #region Public Methods
@@ -29,9 +27,9 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="authorname">The Name of an author of a book</param>
         /// <param name="bookname">The boook's name</param>
-        public int AddAnAuthorAndBook(string authorname, string bookname)
+        public void AddAnAuthorAndBook(string authorname, string bookname, string connectionString)
         {
-            if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
+            if (IsBookInDb(bookname, connectionString) | string.IsNullOrEmpty(bookname)) 
             {
                 throw new DuplicateNameException("There is such book in database");
             }
@@ -58,7 +56,7 @@ namespace BookLib.DAL.Repositories
                     };
                     cmd.Parameters.Add(authorParam);
                     cmd.Parameters.Add(bookParam);
-                    return cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -66,7 +64,7 @@ namespace BookLib.DAL.Repositories
         /// Gets a list of books with authors
         /// </summary>
         /// <returns>The data from a database</returns>
-        public IEnumerable<BookInfo> GetBooks()
+        public IEnumerable<BookInfo> GetBooks(string connectionString)
         {
             //Selects every book from a table with it's author, completion and finishpage
             string sqlProcedure = "sp_SelectBooks";
@@ -100,9 +98,9 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="finishpage">The page where you have finished reading</param>
         /// <param name="bookname">The name of the book which you are reading</param>
-        public int UpdateProgress(string finishpage, string bookname)
+        public void UpdateProgress(string finishpage, string bookname, string connectionString)
         {
-            if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
+            if (IsBookInDb(bookname, connectionString) | string.IsNullOrEmpty(bookname)) 
             {
                 //Updates the reading progress and if you haven't finished the book
                 //changes the field IsCompleted to 'No' otherwise 'Yes'
@@ -127,7 +125,7 @@ namespace BookLib.DAL.Repositories
                         };
                         cmd.Parameters.Add(finishParam);
                         cmd.Parameters.Add(bookParam);
-                        return cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
                     }
                     else
                     {
@@ -145,9 +143,9 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="bookname">The name of book which you want to change</param>
         /// <param name="newbookname">The new name of a book</param>
-        public int UpdateBookName(string bookname, string newbookname)
+        public void UpdateBookName(string bookname, string newbookname, string connectionString)
         {
-            if (IsBookInDb(bookname) | string.IsNullOrEmpty(bookname))
+            if (IsBookInDb(bookname, connectionString) | string.IsNullOrEmpty(bookname))
             {
                 //Updates the name of a book using two parameters 
                 //- name of a book and new name of that book
@@ -169,7 +167,7 @@ namespace BookLib.DAL.Repositories
                     };
                     cmd.Parameters.Add(newBookParam);
                     cmd.Parameters.Add(bookParam);
-                    return cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
             else
@@ -181,9 +179,9 @@ namespace BookLib.DAL.Repositories
         /// Deletes a book from a database
         /// </summary>
         /// <param name="bookname">The name of the book to delete</param>
-        public int DeleteABook(string bookname)
+        public void DeleteABook(string bookname, string connectionString)
         {
-            if (IsBookInDb(bookname) & !string.IsNullOrEmpty(bookname))
+            if (IsBookInDb(bookname, connectionString) & !string.IsNullOrEmpty(bookname))
             {
                 //Deletes a book from a database
                 string sqlProcedure = "sp_DeleteBook";
@@ -198,7 +196,7 @@ namespace BookLib.DAL.Repositories
                         Value = bookname
                     };
                     cmd.Parameters.Add(bookParam);
-                    return cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
             else
@@ -211,9 +209,9 @@ namespace BookLib.DAL.Repositories
         /// Deletes an author from a database
         /// </summary>
         /// <param name="authorname">The name of an author to delete</param>
-        public int DeleteAnAuthor(string authorname)
+        public void DeleteAnAuthor(string authorname, string connectionString)
         {
-            if (IsAuthorInDb(authorname) & !string.IsNullOrEmpty(authorname))
+            if (IsAuthorInDb(authorname, connectionString) & !string.IsNullOrEmpty(authorname))
             {
                 string sqlProcedure = "sp_DeleteAuthor";
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -227,7 +225,7 @@ namespace BookLib.DAL.Repositories
                         Value = authorname
                     };
                     cmd.Parameters.Add(authorParam);
-                    return cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
             else
@@ -236,7 +234,7 @@ namespace BookLib.DAL.Repositories
             }
         }
 
-        public IEnumerable<Author> GetAuthors()
+        public IEnumerable<Author> GetAuthors(string connectionString)
         {
             //Selects every author from a table
             string sqlProcedure = "sp_SelectAuthors";
@@ -267,7 +265,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="bookname">The name of a book to check</param>
         /// <returns>True of false statement</returns>
-        private bool IsBookInDb(string bookname)
+        private bool IsBookInDb(string bookname, string connectionString)
         {
             //Selects a book from a db
             string sqlProcedure = "sp_BookCheck";
@@ -292,7 +290,7 @@ namespace BookLib.DAL.Repositories
         /// </summary>
         /// <param name="authorname">The name of an author to check</param>
         /// <returns>True of false statement</returns>
-        private bool IsAuthorInDb(string authorname)
+        private bool IsAuthorInDb(string authorname, string connectionString)
         {
             //Selects an author from a db
             string sqlProcedure = "sp_CheckAuthor";

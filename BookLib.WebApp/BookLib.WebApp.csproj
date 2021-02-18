@@ -2,15 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6a46931e-234f-4aa4-acdb-567c43c9edce</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="App.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BookLib.BL\BookLib.BL.csproj" />

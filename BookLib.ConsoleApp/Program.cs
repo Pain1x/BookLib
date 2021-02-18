@@ -20,7 +20,7 @@ namespace BookLib.ConsoleApp
             //Correctly transforms symbols for input and output
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
-            TechnologySelector();
+            TechnologySelector("");
             #endregion
         }
         #region Private Methods
@@ -28,7 +28,7 @@ namespace BookLib.ConsoleApp
         /// Adds a book to the db
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void AddABook(IDataRepository db)
+        private static void AddABook(IDataRepository db, string connectionString)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace BookLib.ConsoleApp
                 bookname = Console.ReadLine();
                 Console.WriteLine("Who has written that masterpiece?");
                 authorname = Console.ReadLine();
-                db.AddAnAuthorAndBook(authorname, bookname);
+                db.AddAnAuthorAndBook(authorname, bookname,connectionString);
                 Console.WriteLine($"The book {bookname} by {authorname} was added to your collection");
             }
             catch (Exception ex)
@@ -49,11 +49,11 @@ namespace BookLib.ConsoleApp
         /// Gets books from a database and writes to console
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void GetBooks(IDataRepository db)
+        private static void GetBooks(IDataRepository db, string connectionString)
         {
             try
             {
-                var result = db.GetBooks();
+                var result = db.GetBooks(connectionString);
                 Console.WriteLine("{0,20} {1,25} {2,5} {3,5}", "AuthorName", "BookName", "FinishPage", "IsCompleted");
                 foreach (var r in result)
                 {
@@ -70,7 +70,7 @@ namespace BookLib.ConsoleApp
         /// Updates the reading progress
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void UpdateProgress(IDataRepository db)
+        private static void UpdateProgress(IDataRepository db, string connectionString)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace BookLib.ConsoleApp
                 bookname = Console.ReadLine();
                 Console.WriteLine("Enter the page where you have finished reading");
                 finishpage = Console.ReadLine();
-                db.UpdateProgress(finishpage, bookname);
+                db.UpdateProgress(finishpage, bookname,connectionString);
                 Console.WriteLine($"The book {bookname} was finished on page {finishpage}");
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace BookLib.ConsoleApp
         ///  Updates the name of a book
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void UpdateBook(IDataRepository db)
+        private static void UpdateBook(IDataRepository db, string connectionString)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace BookLib.ConsoleApp
                 bookname = Console.ReadLine();
                 Console.WriteLine("Enter it's new name");
                 newbookname = Console.ReadLine();
-                db.UpdateBookName(bookname, newbookname);
+                db.UpdateBookName(bookname, newbookname,connectionString);
                 Console.WriteLine($"The book {bookname} was renamed to {newbookname}");
             }
             catch (Exception ex)
@@ -113,14 +113,14 @@ namespace BookLib.ConsoleApp
         /// Deletes a book from a database
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void DeleteABook(IDataRepository db)
+        private static void DeleteABook(IDataRepository db, string connectionString)
         {
             try
             {
                 string bookname;
                 Console.WriteLine("Enter the book's name to delete");
                 bookname = Console.ReadLine();
-                db.DeleteABook(bookname);
+                db.DeleteABook(bookname,connectionString);
                 Console.WriteLine($"The book {bookname} was deleted forever");
             }
             catch (Exception ex)
@@ -132,14 +132,14 @@ namespace BookLib.ConsoleApp
         /// Deletes an author
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void DeleteAnAuthor(IDataRepository db)
+        private static void DeleteAnAuthor(IDataRepository db, string connectionString)
         {
             try
             {
                 string authorname;
                 Console.WriteLine("Enter the author's name to delete");
                 authorname = Console.ReadLine();
-                db.DeleteAnAuthor(authorname);
+                db.DeleteAnAuthor(authorname,connectionString);
                 Console.WriteLine($"The author {authorname} was deleted with all of their's books");
             }
             catch (Exception ex)
@@ -162,7 +162,7 @@ namespace BookLib.ConsoleApp
         /// Shows the options for the work with database
         /// </summary>
         /// <param name="db">Class with needed methods</param>
-        private static void OptionSelector(IDataRepository db)
+        private static void OptionSelector(IDataRepository db, string connectionString)
         {
             bool alive = true;
             while (alive)
@@ -177,22 +177,22 @@ namespace BookLib.ConsoleApp
                     switch (option)
                     {
                         case 1:
-                            GetBooks(db);
+                            GetBooks(db,connectionString);
                             break;
                         case 2:
-                            AddABook(db);
+                            AddABook(db,connectionString);
                             break;
                         case 3:
-                            UpdateBook(db);
+                            UpdateBook(db,connectionString);
                             break;
                         case 4:
-                            DeleteABook(db);
+                            DeleteABook(db,connectionString);
                             break;
                         case 5:
-                            DeleteAnAuthor(db);
+                            DeleteAnAuthor(db,connectionString);
                             break;
                         case 6:
-                            UpdateProgress(db);
+                            UpdateProgress(db,connectionString);
                             break;
                         case 7:
                             //exits to select technology menu
@@ -215,7 +215,7 @@ namespace BookLib.ConsoleApp
         /// <summary>
         /// Shows the technology with which you want to work
         /// </summary>
-        private static void TechnologySelector()
+        private static void TechnologySelector(string connectionString)
         {
             bool alive = true;
             while (alive)
@@ -229,10 +229,10 @@ namespace BookLib.ConsoleApp
                     switch (option)
                     {
                         case 1:
-                            OptionSelector(new AdoRepository());
+                            OptionSelector(new AdoRepository(), connectionString);
                             break;
                         case 2:
-                            OptionSelector(new EFCoreRepository(db));
+                            OptionSelector(new EFCoreRepository(db), connectionString);
                             break;
                         default:
                             RedConsole(new Exception("Invalid option number"));

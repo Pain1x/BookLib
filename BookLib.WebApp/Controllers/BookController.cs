@@ -4,6 +4,7 @@ using BookLib.BL.Interfaces;
 using BookLib.WebApp.Models;
 using BookLib.WebApp.Pagination;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,11 +14,15 @@ namespace BookLib.WebApp.Controllers
     {
         #region Private Members
         ILibService libService;
+        private readonly IConfiguration configuration;
+        string connectionString;
         #endregion
         #region Constructor
-        public BookController(ILibService service)
+        public BookController(ILibService service, IConfiguration config)
         {
             libService = service;
+            configuration = config;
+            connectionString = configuration.GetConnectionString("Main");
         }
         #endregion
         #region GET Methods
@@ -36,7 +41,7 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult UpdateBookName()
         {
-            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks(connectionString);
             PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
             BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
             return View(bvm);
@@ -47,7 +52,7 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult DeleteABook()
         {
-            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks(connectionString);
             PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
             BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
             return View(bvm);
@@ -58,7 +63,7 @@ namespace BookLib.WebApp.Controllers
         /// <returns></returns>
         public IActionResult UpdateProgress()
         {
-            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks();
+            IEnumerable<BookInfoDTO> bookinfoDTO = libService.GetBooks(connectionString);
             PageInfo pageinfo = new PageInfo(bookinfoDTO.Count(), 0, 5);
             BookInfoViewModel bvm = new BookInfoViewModel { PageInfo = pageinfo, Books = bookinfoDTO };
             return View(bvm);
@@ -76,7 +81,7 @@ namespace BookLib.WebApp.Controllers
         {
             try
             {
-                libService.AddAnAuthorAndBook(authorname, bookname);
+                libService.AddAnAuthorAndBook(authorname, bookname, connectionString);
                 return RedirectToAction("Index", "Home");
             }
             catch (ValidationException ex)
@@ -96,7 +101,7 @@ namespace BookLib.WebApp.Controllers
         {
             try
             {
-                libService.UpdateBookName(bookname, newbookname);
+                libService.UpdateBookName(bookname, newbookname, connectionString);
                 return RedirectToAction("Index","Home");
             }
             catch (ValidationException ex)
@@ -114,7 +119,7 @@ namespace BookLib.WebApp.Controllers
         {
             try
             {
-                libService.DeleteABook(bookname);
+                libService.DeleteABook(bookname, connectionString);
                 return RedirectToAction("Index","Home");
             }
             catch (ValidationException ex)
@@ -133,7 +138,7 @@ namespace BookLib.WebApp.Controllers
         {
             try
             {
-                libService.UpdateProgress(finishpage, bookname);
+                libService.UpdateProgress(finishpage, bookname, connectionString);
                 return RedirectToAction("Index","Home");
             }
             catch (ValidationException ex)

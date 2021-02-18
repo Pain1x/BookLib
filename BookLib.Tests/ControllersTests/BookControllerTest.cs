@@ -5,6 +5,7 @@ using BookLib.DAL.Interfaces;
 using BookLib.DAL.Repositories;
 using BookLib.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
 
@@ -18,11 +19,12 @@ namespace BookLib.Tests.ControllersTests
         public void UpdateProgress_ViewResultNotNull()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
             string finishpage = "54";
             string bookname = "Книжка";
-            mock.Setup(a => a.UpdateProgress(finishpage, bookname));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.UpdateProgress(finishpage, bookname,""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
 
             //Act
             ViewResult result = controller.UpdateProgress() as ViewResult;
@@ -35,9 +37,10 @@ namespace BookLib.Tests.ControllersTests
         public void AddAnAuthorAndBook_ViewResultNotNull()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             IUnitOfWork unitOfWorkTest = new UnitOfWork();
             ILibService libServiceTest = new LibService(unitOfWorkTest);
-            BookController controller = new BookController(libServiceTest);
+            BookController controller = new BookController(libServiceTest, mock2.Object);
             //Act
             ViewResult result = controller.AddAnAuthorAndBook() as ViewResult;
             //Assert
@@ -48,11 +51,12 @@ namespace BookLib.Tests.ControllersTests
         public void UpdateBookName_ViewResultNotNull()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
             string newbookname = "54";
             string bookname = "Книжка";
-            mock.Setup(a => a.UpdateBookName(bookname, newbookname));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.UpdateBookName(bookname, newbookname, ""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
 
             //Act
             ViewResult result = controller.UpdateBookName() as ViewResult;
@@ -65,13 +69,14 @@ namespace BookLib.Tests.ControllersTests
         public void DeleteABook_ViewResultNotNull()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
             string bookname = "Книжка";
-            mock.Setup(a => a.DeleteABook(bookname));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.DeleteABook(bookname, ""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
 
             //Act
-            ViewResult result = controller.DeleteABook() as ViewResult;
+            ViewResult result = controller.DeleteABook("") as ViewResult;
 
             //Assert
             Assert.IsNotNull(result.Model);
@@ -82,52 +87,56 @@ namespace BookLib.Tests.ControllersTests
         public void AddAnAuthorAndBook_ThrowsException()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            mock.Setup(a => a.AddAnAuthorAndBook(null, null)).Throws(new ValidationException("Test Exception", ""));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.AddAnAuthorAndBook(null, null, "")).Throws(new ValidationException("Test Exception", ""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
             //Act
             ContentResult result = controller.AddAnAuthorAndBook() as ContentResult;
             //Assert
-            Assert.That(() => mock.Object.AddAnAuthorAndBook(null, null), Throws.Exception);
+            Assert.That(() => mock.Object.AddAnAuthorAndBook(null, null, ""), Throws.Exception);
         }
 
         [Test]
         public void UpdateBookName_ThrowsException()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            mock.Setup(a => a.UpdateBookName(null, null)).Throws(new ValidationException("Test Exception", ""));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.UpdateBookName(null, null, "")).Throws(new ValidationException("Test Exception", ""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
             //Act
             ContentResult result = controller.UpdateBookName() as ContentResult;
             //Assert
-            Assert.That(() => mock.Object.UpdateBookName(null, null), Throws.Exception);
+            Assert.That(() => mock.Object.UpdateBookName(null, null, ""), Throws.Exception);
         }
 
         [Test]
         public void DeleteABook_ThrowsException()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            mock.Setup(a => a.DeleteABook(null)).Throws(new ValidationException("Test Exception", "")); ;
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.DeleteABook(null, "")).Throws(new ValidationException("Test Exception", "")); ;
+            BookController controller = new BookController(mock.Object, mock2.Object);
             //Act
-            ContentResult result = controller.DeleteABook() as ContentResult;
+            ContentResult result = controller.DeleteABook("") as ContentResult;
             //Assert
-            Assert.That(() => mock.Object.DeleteABook(null), Throws.Exception);
+            Assert.That(() => mock.Object.DeleteABook(null, ""), Throws.Exception);
         }
 
         [Test]
         public void UpdateProgress_ThrowsException()
         {
             //Arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            mock.Setup(a => a.UpdateProgress(null, null)).Throws(new ValidationException("Test Exception", ""));
-            BookController controller = new BookController(mock.Object);
+            mock.Setup(a => a.UpdateProgress(null, null, "")).Throws(new ValidationException("Test Exception", ""));
+            BookController controller = new BookController(mock.Object, mock2.Object);
             //Act
             ContentResult result = controller.UpdateProgress() as ContentResult;
             //Assert
-            Assert.That(() => mock.Object.UpdateProgress(null, null), Throws.Exception);
+            Assert.That(() => mock.Object.UpdateProgress(null, null, ""), Throws.Exception);
         }
         #endregion
         #region VerifyOnce
@@ -135,45 +144,49 @@ namespace BookLib.Tests.ControllersTests
         public void AddAnAuthorAndBook_VerifyOnce()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToActionResult result = controller.AddAnAuthorAndBook("Новий", "Нова") as RedirectToActionResult;
             // assert
-            mock.Verify(a => a.AddAnAuthorAndBook("Новий", "Нова"), Times.Once);
+            mock.Verify(a => a.AddAnAuthorAndBook("Новий", "Нова", ""), Times.Once);
         }
         [Test]
         public void UpdateBookName_VerifyOnce()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToActionResult result = controller.UpdateBookName("Нова", "Новіша") as RedirectToActionResult;
             // assert
-            mock.Verify(a => a.UpdateBookName("Нова", "Новіша"), Times.Once);
+            mock.Verify(a => a.UpdateBookName("Нова", "Новіша", ""), Times.Once);
         }
         [Test]
         public void DeleteABook_VerifyOnce()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToActionResult result = controller.DeleteABook("Нова") as RedirectToActionResult;
             // assert
-            mock.Verify(a => a.DeleteABook("Нова"), Times.Once);
+            mock.Verify(a => a.DeleteABook("Нова", ""), Times.Once);
         }
         [Test]
         public void UpdateProgress_VerifyOnce()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToActionResult result = controller.UpdateProgress("54", "Нова") as RedirectToActionResult;
             // assert
-            mock.Verify(a => a.UpdateProgress("54", "Нова"), Times.Once);
+            mock.Verify(a => a.UpdateProgress("54", "Нова", ""), Times.Once);
         }
         #endregion
         #region RedirectToPage_POST
@@ -181,20 +194,23 @@ namespace BookLib.Tests.ControllersTests
         public void AddAnAuthorAndBook_RedirectToPage_POST()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToPageResult result = controller.RedirectToPage("AddAnAuthorAndBook");
             //assert
             Assert.IsNotNull(result);
             Assert.That(result.PageName, Is.EqualTo("AddAnAuthorAndBook"));
         }
+
         [Test]
         public void UpdateBookName_RedirectToPage_POST()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToPageResult result = controller.RedirectToPage("UpdateBookName");
             //assert
@@ -205,8 +221,9 @@ namespace BookLib.Tests.ControllersTests
         public void DeleteABook_RedirectToPage_POST()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             // act
             RedirectToPageResult result = controller.RedirectToPage("DeleteABook");
             //assert
@@ -217,8 +234,9 @@ namespace BookLib.Tests.ControllersTests
         public void UpdateProgress_RedirectToPage_POST()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             var mock = new Mock<ILibService>();
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object,mock2.Object);
             // act
             RedirectToPageResult result = controller.RedirectToPage("UpdateProgress");
             //assert
@@ -231,10 +249,11 @@ namespace BookLib.Tests.ControllersTests
         public void BookController_CreateAnObject()
         {
             // arrange
+            var mock2 = new Mock<IConfiguration>();
             string expected = "BookController";
             var mock = new Mock<ILibService>();
             // act
-            BookController controller = new BookController(mock.Object);
+            BookController controller = new BookController(mock.Object, mock2.Object);
             //assert
             Assert.IsNotNull(controller);
             Assert.AreEqual(expected, controller.GetType().Name);
