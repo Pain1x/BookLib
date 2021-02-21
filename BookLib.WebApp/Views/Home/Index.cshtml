@@ -33,31 +33,32 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.PageInfo.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PageInfo.HasNextPage ? "disabled" : "";
+}
+
+
 <table style="margin-bottom:10px">
     <tbody>
         <tr>
             <td style="padding-right: 440px;">
-                @if (Model.PageInfo.HasPreviousPage)
-                {
                     <a asp-action="Index"
                        asp-route-page="@(Model.PageInfo.PageNumber - 1)"
-                       class="btn btn-outline-dark">
+                       class="btn btn-outline-dark  @prevDisabled">
                         <i class="glyphicon glyphicon-chevron-left"></i>
                         Previous page
                     </a>
-                }
-                </td>                
+            </td>
             <td style="padding-left: 440px;">
-                @if (Model.PageInfo.HasNextPage)
-                {
                     <a asp-action="Index"
                        asp-route-page="@(Model.PageInfo.PageNumber + 1)"
-                       class="btn btn-outline-dark">
+                       class="btn btn-outline-dark @nextDisabled">
                         Next page
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </a>
-                }
-                </td>
+            </td>
         </tr>
     </tbody>
 </table>
