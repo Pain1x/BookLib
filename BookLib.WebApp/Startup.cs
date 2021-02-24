@@ -2,13 +2,11 @@ using BookLib.BL.Interfaces;
 using BookLib.BL.Services;
 using BookLib.DAL.Interfaces;
 using BookLib.DAL.Repositories;
-using BookLib.WebApp.Pagination;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BookLib.WebApp
 {

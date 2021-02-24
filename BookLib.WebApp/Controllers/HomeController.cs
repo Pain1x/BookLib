@@ -26,7 +26,7 @@ namespace BookLib.WebApp.Controllers
         {
             libService = service;
             configuration = config;
-            connectionString= configuration.GetConnectionString("Main");
+            connectionString = configuration.GetConnectionString("Azure");
         }
         #endregion
         #region GET Methods
