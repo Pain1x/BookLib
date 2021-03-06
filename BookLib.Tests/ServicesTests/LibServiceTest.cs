@@ -131,107 +131,107 @@ namespace BookLib.Tests.ServicesTests
         }
         #endregion
         #region VerifyOnce
-        [Test]
-        public void GetBooks_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.GetBooks(""));
-            HomeController controller = new HomeController(mock.Object,mock2.Object);
+        //[Test]
+        //public void GetBooks_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.GetBooks(""));
+        //    HomeController controller = new HomeController(mock.Object,mock2.Object);
 
-            //Act
-            controller.Index();
+        //    //Act
+        //    controller.Index();
 
-            //Assert
-           mock.Verify(x => x.GetBooks(""), Times.Once);
-        }
+        //    //Assert
+        //   mock.Verify(x => x.GetBooks(""), Times.Once);
+        //}
 
-        [Test]
-        public void AddAnAuthorAndBook_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            string bookname = "Книга";
-            string authorname = "Автор";
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.AddAnAuthorAndBook(authorname, bookname, ""));
-            BookController controller = new BookController(mock.Object, mock2.Object);
+        //[Test]
+        //public void AddAnAuthorAndBook_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    string bookname = "Книга";
+        //    string authorname = "Автор";
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.AddAnAuthorAndBook(authorname, bookname, ""));
+        //    BookController controller = new BookController(mock.Object, mock2.Object);
 
-            //Act
-            controller.AddAnAuthorAndBook(authorname, bookname);
+        //    //Act
+        //    controller.AddAnAuthorAndBook(authorname, bookname);
 
-            //Assert
-            mock.Verify(x => x.AddAnAuthorAndBook(authorname, bookname, ""), Times.Once);
-        }
-        [Test]
-        public void UpdateBookName_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            string bookname = "Книга";
-            string newbookname = "Нова";
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.UpdateBookName(newbookname, bookname, ""));
-            BookController controller = new BookController(mock.Object, mock2.Object);
+        //    //Assert
+        //    mock.Verify(x => x.AddAnAuthorAndBook(authorname, bookname, ""), Times.Once);
+        //}
+        //[Test]
+        //public void UpdateBookName_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    string bookname = "Книга";
+        //    string newbookname = "Нова";
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.UpdateBookName(newbookname, bookname, ""));
+        //    BookController controller = new BookController(mock.Object, mock2.Object);
 
-            //Act
-            controller.UpdateBookName(newbookname, bookname);
+        //    //Act
+        //    controller.UpdateBookName(newbookname, bookname);
 
-            //Assert
-            mock.Verify(x => x.UpdateBookName(newbookname, bookname, ""), Times.Once);
-        }
-        [Test]
-        public void DeleteABook_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            string bookname = "Книга";
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.DeleteABook(bookname, ""));
-            BookController controller = new BookController(mock.Object, mock2.Object);
+        //    //Assert
+        //    mock.Verify(x => x.UpdateBookName(newbookname, bookname, ""), Times.Once);
+        //}
+        //[Test]
+        //public void DeleteABook_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    string bookname = "Книга";
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.DeleteABook(bookname, ""));
+        //    BookController controller = new BookController(mock.Object, mock2.Object);
 
-            //Act
-            controller.DeleteABook(bookname);
+        //    //Act
+        //    controller.DeleteABook(bookname);
 
-            //Assert
-            mock.Verify(x => x.DeleteABook(bookname, ""), Times.Once);
-        }
+        //    //Assert
+        //    mock.Verify(x => x.DeleteABook(bookname, ""), Times.Once);
+        //}
 
-        [Test]
-        public void UpdateProgress_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            string bookname = "Книга";
-            string finishpage = "Нова";
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.UpdateProgress(finishpage, bookname, ""));
-            BookController controller = new BookController(mock.Object, mock2.Object);
+        //[Test]
+        //public void UpdateProgress_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    string bookname = "Книга";
+        //    string finishpage = "Нова";
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.UpdateProgress(finishpage, bookname, ""));
+        //    BookController controller = new BookController(mock.Object, mock2.Object);
 
-            //Act
-            controller.UpdateProgress(finishpage, bookname);
+        //    //Act
+        //    controller.UpdateProgress(finishpage, bookname);
 
-            //Assert
-            mock.Verify(x => x.UpdateProgress(finishpage, bookname, ""), Times.Once);
-        }
+        //    //Assert
+        //    mock.Verify(x => x.UpdateProgress(finishpage, bookname, ""), Times.Once);
+        //}
 
-        [Test]
-        public void DeleteAnAuthor_VerifyOnce()
-        {
-            //Arrange
-            var mock2 = new Mock<IConfiguration>();
-            string authorname = "Автор";
-            var mock = new Mock<ILibService>();
-            mock.Setup(x => x.DeleteAnAuthor(authorname, ""));
-            AuthorController controller = new AuthorController(mock.Object,mock2.Object);
+        //[Test]
+        //public void DeleteAnAuthor_VerifyOnce()
+        //{
+        //    //Arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    string authorname = "Автор";
+        //    var mock = new Mock<ILibService>();
+        //    mock.Setup(x => x.DeleteAnAuthor(authorname, ""));
+        //    AuthorController controller = new AuthorController(mock.Object,mock2.Object);
 
-            //Act
-            controller.DeleteAnAuthor(authorname);
+        //    //Act
+        //    controller.DeleteAnAuthor(authorname);
 
-            //Assert
-            mock.Verify(x => x.DeleteAnAuthor(authorname, ""), Times.Once);
-        }
+        //    //Assert
+        //    mock.Verify(x => x.DeleteAnAuthor(authorname, ""), Times.Once);
+        //}
         #endregion
     }
 }

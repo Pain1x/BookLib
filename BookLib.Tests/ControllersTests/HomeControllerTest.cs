@@ -43,18 +43,18 @@ namespace BookLib.Tests.ControllersTests
         }
         #endregion
         #region VerifyOnce
-        [Test]
-        public void GetBooks_VerifyOnce()
-        {
-            // arrange
-            var mock2 = new Mock<IConfiguration>();
-            var mock = new Mock<ILibService>();
-            HomeController controller = new HomeController(mock.Object,mock2.Object);
-            // act
-            RedirectToActionResult result = controller.Index() as RedirectToActionResult;
-            // assert
-            mock.Verify(a => a.GetBooks(""), Times.Once);
-        }      
+        //[Test]
+        //public void GetBooks_VerifyOnce()
+        //{
+        //    // arrange
+        //    var mock2 = new Mock<IConfiguration>();
+        //    var mock = new Mock<ILibService>();
+        //    HomeController controller = new HomeController(mock.Object,mock2.Object);
+        //    // act
+        //    RedirectToActionResult result = controller.Index() as RedirectToActionResult;
+        //    // assert
+        //    mock.Verify(a => a.GetBooks(""), Times.Once);
+        //}      
         #endregion
         #region RedirectToPage_POST
         [Test]
